@@ -1,13 +1,4 @@
-function Main() {
-  function handleEditAvatarClick() {
-    document.querySelector(".popup-editavatar").classList.add("popup_opened");
-  }
-  function handleEditProfileClick() {
-    document.querySelector(".popup-profile").classList.add("popup_opened");
-  }
-  function handleAddPlaceClick() {
-    document.querySelector(".popup-addcard").classList.add("popup_opened");
-  }
+function Main(props) {
   return (
     <main className="main">
       {/* Profile section */}
@@ -15,7 +6,7 @@ function Main() {
         <div className="profile__images">
           <button
             className="profile__avatar-edit"
-            onClick={handleEditAvatarClick}
+            onClick={props.onEditAvatar}
           ></button>
         </div>
         <div className="profile__info">
@@ -24,7 +15,7 @@ function Main() {
             <button
               className="profile__edit-button page__button"
               type="button"
-              onClick={handleEditProfileClick}
+              onClick={props.onEditProfile}
             ></button>
           </div>
           <p className="profile__subtitle">Исследователь океана</p>
@@ -32,7 +23,7 @@ function Main() {
         <button
           className="profile__addcard-button page__button"
           type="button"
-          onClick={handleAddPlaceClick}
+          onClick={props.onAddPlace}
         ></button>
       </section>
       {/* Elements section */}
