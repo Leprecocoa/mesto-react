@@ -1,0 +1,12 @@
+.popup__label {
+  display: inline-block;
+  width: 100%;
+}
+
+.popup__label:first-of-type {
+  padding-bottom: 35px;
+}
+
+.popup__label:last-of-type {
+  padding-bottom: 45px;
+}

@@ -1,0 +1,11 @@
+.profile__header {
+  display: flex;
+  align-items: baseline;
+  position: relative;
+}
+
+@media screen and (max-width: 500px) {
+  .profile__header {
+    margin-bottom: 9px;
+  }
+}
