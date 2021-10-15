@@ -6,6 +6,8 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { api } from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
@@ -32,6 +34,20 @@ function App() {
     setAddPlacePopupOpen(false);
     setSelectedCard(null);
   }
+  function handleUpdateUser(newUser) {
+    api
+      .sendProfileInfo(newUser)
+      .then(setCurrentUser)
+      .then(closeAllPopups)
+      .catch((err) => console.log(err));
+  }
+  function handleUpdateAvatar(newAvatar) {
+    api
+      .editAvatar(newAvatar.avatar)
+      .then(setCurrentUser)
+      .then(closeAllPopups)
+      .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
     api.getUserInfo().then((userInfo) => {
@@ -56,75 +72,17 @@ function App() {
             {/* Footer */}
             <Footer />
             {/* Popup profile */}
-            <PopupWithForm
-              name="profile"
-              title="Редактировать профиль"
-              buttonText="Сохранить"
+            <EditProfilePopup
               isOpen={isEditProfilePopupOpen}
               onClose={closeAllPopups}
-            >
-              <label className="popup__label">
-                <input
-                  className="popup__input popup__input_value_name"
-                  type="text"
-                  name="name"
-                  placeholder="Имя"
-                  required
-                  minLength="2"
-                  maxLength="40"
-                  id="profile-name"
-                />
-                <div className="popup__error">
-                  <span
-                    className="popup__error-span"
-                    id="profile-name-error"
-                  ></span>
-                </div>
-              </label>
-              <label className="popup__label">
-                <input
-                  className="popup__input popup__input_value_about"
-                  type="text"
-                  name="about"
-                  placeholder="О себе"
-                  required
-                  minLength="2"
-                  maxLength="200"
-                  id="profile-about"
-                />
-                <div className="popup__error">
-                  <span
-                    className="popup__error-span"
-                    id="profile-about-error"
-                  ></span>
-                </div>
-              </label>
-            </PopupWithForm>
+              onUpdateUser={handleUpdateUser}
+            />
             {/* Popup edit profile avatar */}
-            <PopupWithForm
-              name="editavatar"
-              title="Обновить аватар"
-              buttonText="Сохранить"
+            <EditAvatarPopup
               isOpen={isEditAvatarPopupOpen}
               onClose={closeAllPopups}
-            >
-              <label className="popup__label">
-                <input
-                  className="popup__input popup__input_value_avatar-link"
-                  name="avatar-link"
-                  placeholder="Ссылка на картинку"
-                  required
-                  type="url"
-                  id="avatar-link"
-                />
-                <div className="popup__error">
-                  <span
-                    className="popup__error-span"
-                    id="avatar-link-error"
-                  ></span>
-                </div>
-              </label>
-            </PopupWithForm>
+              onUpdateAvatar={handleUpdateAvatar}
+            />
             {/* Add card popup */}
             <PopupWithForm
               name="addcard"
