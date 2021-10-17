@@ -82,19 +82,25 @@ function App() {
     }
   }
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      setCards((state) =>
-        state.filter((el) => {
-          return el._id !== card._id;
-        })
-      );
-    });
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) =>
+          state.filter((el) => {
+            return el._id !== card._id;
+          })
+        );
+      })
+      .catch((err) => console.log(err));
   }
 
   useEffect(() => {
-    api.getUserInfo().then((userInfo) => {
-      setCurrentUser(userInfo);
-    });
+    api
+      .getUserInfo()
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+      })
+      .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
     api
